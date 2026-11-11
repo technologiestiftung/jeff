@@ -24,7 +24,7 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 # 1. Dependencies only (cached until pyproject.toml or uv.lock change).
-COPY pyproject.toml uv.lock README.md ./
+COPY pyproject.toml uv.lock README.md LICENSE ./
 RUN uv export --frozen --no-dev --extra onnx --no-emit-project --no-hashes --no-annotate -o /tmp/req.txt \
  && grep -vE '^(nvidia-|triton)' /tmp/req.txt > /tmp/req-cpu.txt \
  && uv pip install --torch-backend=cpu -r /tmp/req-cpu.txt \
